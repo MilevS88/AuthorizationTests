@@ -1,21 +1,34 @@
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class AuthorizationTests {
     @Test
-    void test01LoginSuccess() throws InterruptedException {
+    void test01LoginSuccess() {
         open("https://slqa.ru/cases/ChatGPTLogin");
 
         $(By.id("username")).setValue("standard_user");
-
         $(By.id("password")).setValue("secret_sauce");
 
         $(By.id("loginButton")).click();
-
         // Ожидание изменения состояния страницы
         sleep(5000);
+    }
+    @Test
+        // Тест с пустыми полями
+    void test02EmptyFields() {
+        open("https://slqa.ru/cases/ChatGPTLogin");
+
+        $(By.id("username")).setValue("");
+        $(By.id("password")).setValue("");
+
+        $(By.id("loginButton")).click();
+
+        sleep(5000);
+
+        $(By.id("message")).shouldBe(visible).shouldHave(text("Username and Password are required."));
     }
 }
