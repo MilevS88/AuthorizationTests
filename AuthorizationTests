@@ -33,6 +33,5 @@ import org.openqa.selenium.By;
         $(By.id("message")).shouldBe(visible);
         $(By.id("message")).shouldHave(text("Пользователь заблокирован."));
         $(By.id("greeting")).shouldNotBe(visible);
-        sleep(3000);
     }
 }
